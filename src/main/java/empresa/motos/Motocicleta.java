@@ -1,39 +1,36 @@
 package empresa.motos;
 
-
-
 public class Motocicleta {
-    
+
     /**
      * Se generaran los atributos (caracteristicas) de todas las motocicletas
-     * 
+     *
      */
-    
     private int id;
     private String placa;
     private String marca;
-    private int modelo;
     private double precio;
     private boolean disponible;
+    private char categoria;
     private String estado;
-    
+
+    public Motocicleta() {
+
+    }
+
     /**
      * Cree el metodo constructor para darle sus valores iniciales
      */
-    public Motocicleta(int id, String placa, String marca, int modelo, double precio, boolean disponible, String estado) 
-    {
+    public Motocicleta(int id, String placa, String marca, double precio, boolean disponible, char categoria, String estado) {
         this.id = id;
         this.placa = placa;
         this.marca = marca;
-        this.modelo = modelo;
         this.precio = precio;
         this.disponible = disponible;
+        this.categoria = categoria;
         this.estado = estado;
+        
     }
-    /**
-     * se genera los metodos gets and setter para poder adquirir o establecer el valor de los atributos
-     * 
-     */
 
     public void setId(int id) {
         this.id = id;
@@ -47,9 +44,6 @@ public class Motocicleta {
         this.marca = marca;
     }
 
-    public void setModelo(int modelo) {
-        this.modelo = modelo;
-    }
 
     public void setPrecio(double precio) {
         this.precio = precio;
@@ -71,12 +65,16 @@ public class Motocicleta {
         return placa;
     }
 
-    public String getMarca() {
-        return marca;
+    public char getCategoria() {
+        return categoria;
     }
 
-    public int getModelo() {
-        return modelo;
+    public void setCategoria(char categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getMarca() {
+        return marca;
     }
 
     public double getPrecio() {
@@ -90,9 +88,5 @@ public class Motocicleta {
     public String getEstado() {
         return estado;
     }
-    
-    
-    
-    
-    
+
 }
