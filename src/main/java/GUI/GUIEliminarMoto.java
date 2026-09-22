@@ -47,6 +47,8 @@ public class GUIEliminarMoto extends javax.swing.JFrame {
         txtEstado = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JButton();
+        txtcodigoConcesionario = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -80,6 +82,10 @@ public class GUIEliminarMoto extends javax.swing.JFrame {
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
 
+        txtcodigoConcesionario.setEditable(false);
+
+        jLabel8.setText("Concesionario: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,7 +109,11 @@ public class GUIEliminarMoto extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtcodigoConcesionario, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -112,7 +122,7 @@ public class GUIEliminarMoto extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEliminar)
@@ -131,11 +141,18 @@ public class GUIEliminarMoto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtcodigoConcesionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -145,7 +162,7 @@ public class GUIEliminarMoto extends javax.swing.JFrame {
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnEliminar)
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,6 +172,7 @@ public class GUIEliminarMoto extends javax.swing.JFrame {
 
         String textoId = txtID.getText();
         int id = Integer.parseInt(textoId);
+
         ArchivoMotocicletas archivo = new ArchivoMotocicletas();
 
         try {
@@ -167,6 +185,7 @@ public class GUIEliminarMoto extends javax.swing.JFrame {
                 txtMarca.setText(moto.getMarca());
                 txtPrecio.setText(String.valueOf(moto.getPrecio()));
                 txtEstado.setText(moto.getEstado());
+                txtcodigoConcesionario.setText(String.valueOf(moto.getCodigoConcesionario()));
             }
         } catch (IOException e) {
 
@@ -196,6 +215,7 @@ public class GUIEliminarMoto extends javax.swing.JFrame {
                 txtMarca.setText(moto.getMarca());
                 txtPrecio.setText(String.valueOf(moto.getPrecio()));
                 txtEstado.setText(moto.getEstado());
+                txtcodigoConcesionario.setText(String.valueOf(moto.getCodigoConcesionario()));
 
                 int respuesta = JOptionPane.showConfirmDialog(
                         this,
@@ -279,10 +299,12 @@ public class GUIEliminarMoto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtcodigoConcesionario;
     // End of variables declaration//GEN-END:variables
 }

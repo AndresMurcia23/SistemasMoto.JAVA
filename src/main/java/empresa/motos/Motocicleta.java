@@ -13,6 +13,7 @@ public class Motocicleta {
     private boolean disponible;
     private char categoria;
     private String estado;
+    private int codigoConcesionario;
 
     public Motocicleta() {
 
@@ -21,7 +22,7 @@ public class Motocicleta {
     /**
      * Cree el metodo constructor para darle sus valores iniciales
      */
-    public Motocicleta(int id, String placa, String marca, double precio, boolean disponible, char categoria, String estado) {
+    public Motocicleta(int id, String placa, String marca, double precio, boolean disponible, char categoria, String estado, int codigoConcesionario) {
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -29,7 +30,16 @@ public class Motocicleta {
         this.disponible = disponible;
         this.categoria = categoria;
         this.estado = estado;
+        this.codigoConcesionario = codigoConcesionario;
         
+    }
+
+    public int getCodigoConcesionario() {
+        return codigoConcesionario;
+    }
+
+    public void setCodigoConcesionario(int codigoConcesionario) {
+        this.codigoConcesionario = codigoConcesionario;
     }
 
     public void setId(int id) {

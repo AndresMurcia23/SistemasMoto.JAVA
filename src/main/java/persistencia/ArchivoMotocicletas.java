@@ -7,6 +7,7 @@ import empresa.motos.Motocicleta;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.IOException;
+import java.rmi.server.ExportException;
 import java.util.ArrayList;
 
 public class ArchivoMotocicletas {
@@ -27,6 +28,12 @@ public class ArchivoMotocicletas {
                 throw new IOException("El id ya existe");
             }
         }
+        Archivoconsesionario archivoconsesionario = new Archivoconsesionario();
+
+        if (archivoconsesionario.buscarcs(moto.getCodigoConcesionario()) == null) {
+            throw new ExportException("El Concesionario No existe");
+
+        }
 
         RandomAccessFile raf = new RandomAccessFile(archivo, "rw");
 
@@ -41,6 +48,7 @@ public class ArchivoMotocicletas {
         raf.writeBoolean(moto.isDisponible());
         raf.writeChar(moto.getCategoria());
         raf.writeUTF(moto.getEstado());
+        raf.writeInt(moto.getCodigoConcesionario());
 
         // Se cierra el archivo.
         raf.close();
@@ -60,6 +68,7 @@ public class ArchivoMotocicletas {
         boolean disponible = raf.readBoolean();
         char categoria = raf.readChar();
         String estado = raf.readUTF();
+        int codigoConcesionario = raf.readInt();
 
         raf.close();
 
@@ -70,7 +79,8 @@ public class ArchivoMotocicletas {
                 precio,
                 disponible,
                 categoria,
-                estado
+                estado,
+                codigoConcesionario
         );
 
     }
@@ -90,6 +100,7 @@ public class ArchivoMotocicletas {
             boolean disponible = raf.readBoolean();
             char categoria = raf.readChar();
             String estado = raf.readUTF();
+            int codigoConcesionario = raf.readInt();
 
             if (idActual == id) {
 
@@ -102,7 +113,8 @@ public class ArchivoMotocicletas {
                         precio,
                         disponible,
                         categoria,
-                        estado
+                        estado,
+                        codigoConcesionario
                 );
             }
         }
@@ -130,6 +142,7 @@ public class ArchivoMotocicletas {
             boolean disponible = raf.readBoolean();
             char categoria = raf.readChar();
             String estado = raf.readUTF();
+            int codigoConcesionario = raf.readInt();
 
             if (idActual == id) {
 
@@ -144,6 +157,7 @@ public class ArchivoMotocicletas {
                 temp.writeBoolean(disponible);
                 temp.writeChar(categoria);
                 temp.writeUTF(estado);
+                temp.writeInt(codigoConcesionario);
             }
         }
 
@@ -162,7 +176,13 @@ public class ArchivoMotocicletas {
         }
     }
 
-    public void actualizar(Motocicleta moto) throws IOException {
+    public void actualizar(int idOriginal, Motocicleta moto) throws IOException {
+
+        Archivoconsesionario archivoConcesionario = new Archivoconsesionario();
+
+        if (archivoConcesionario.buscarcs(moto.getCodigoConcesionario()) == null) {
+            throw new IOException("El concesionario no existe");
+        }
 
         File archivoTemporal = new File("motocicletas_temp.txt");
 
@@ -178,8 +198,9 @@ public class ArchivoMotocicletas {
             boolean disponible = raf.readBoolean();
             char categoria = raf.readChar();
             String estado = raf.readUTF();
+            int codigoConcesionario = raf.readInt();
 
-            if (idActual == moto.getId()) {
+            if (idActual == idOriginal) {
 
                 temp.writeInt(moto.getId());
                 temp.writeUTF(moto.getPlaca());
@@ -188,6 +209,7 @@ public class ArchivoMotocicletas {
                 temp.writeBoolean(moto.isDisponible());
                 temp.writeChar(moto.getCategoria());
                 temp.writeUTF(moto.getEstado());
+                temp.writeInt(moto.getCodigoConcesionario());
 
             } else {
 
@@ -198,6 +220,7 @@ public class ArchivoMotocicletas {
                 temp.writeBoolean(disponible);
                 temp.writeChar(categoria);
                 temp.writeUTF(estado);
+                temp.writeInt(codigoConcesionario);
             }
         }
 
@@ -225,6 +248,7 @@ public class ArchivoMotocicletas {
             boolean disponible = raf.readBoolean();
             char categoria = raf.readChar();
             String estado = raf.readUTF();
+            int codigoConcesionario = raf.readInt();
 
             Motocicleta moto = new Motocicleta(
                     id,
@@ -233,7 +257,8 @@ public class ArchivoMotocicletas {
                     precio,
                     disponible,
                     categoria,
-                    estado
+                    estado,
+                    codigoConcesionario
             );
 
             motos.add(moto);
@@ -242,6 +267,92 @@ public class ArchivoMotocicletas {
         raf.close();
 
         return motos;
+    }
+
+    public double calcularPrecios() throws IOException {
+
+        double suma = 0;
+
+        RandomAccessFile raf = new RandomAccessFile(archivo, "r");
+
+        while (raf.getFilePointer() < raf.length()) {
+
+            raf.readInt();
+            raf.readUTF();
+            raf.readUTF();
+
+            double precio = raf.readDouble();
+
+            raf.readBoolean();
+            raf.readChar();
+            raf.readUTF();
+            raf.readInt();
+
+            suma = suma + precio;
+        }
+
+        raf.close();
+
+        return suma;
+
+    }
+
+    public boolean existePorConcesionario(int codigoConcesionario) throws IOException {
+
+        if (!archivo.exists()) {
+            return false;
+        }
+
+        RandomAccessFile raf = new RandomAccessFile(archivo, "r");
+
+        raf.seek(0);
+
+        while (raf.getFilePointer() < raf.length()) {
+
+            raf.readInt();
+            raf.readUTF();
+            raf.readUTF();
+            raf.readDouble();
+            raf.readBoolean();
+            raf.readChar();
+            raf.readUTF();
+
+            int codigo = raf.readInt();
+
+            if (codigo == codigoConcesionario) {
+
+                raf.close();
+                return true;
+            }
+        }
+
+        raf.close();
+        return false;
+    }
+
+    public double calcularMotos() throws IOException {
+
+        double suma = 0;
+
+        RandomAccessFile raf = new RandomAccessFile(archivo, "r");
+
+        while (raf.getFilePointer() < raf.length()) {
+
+            raf.readInt();
+            raf.readUTF();
+            raf.readUTF();
+
+            double precio = raf.readDouble();
+
+            raf.readBoolean();
+            raf.readChar();
+            raf.readUTF();
+            raf.readInt();
+
+            suma = suma + 1;
+        }
+
+        return suma;
     }
 
 }

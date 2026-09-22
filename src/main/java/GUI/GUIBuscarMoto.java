@@ -8,12 +8,16 @@ import empresa.motos.Motocicleta;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import persistencia.ArchivoMotocicletas;
+import empresa.motos.Concesionario;
+import persistencia.Archivoconsesionario;
 
 /**
  *
  * @author Admin
  */
 public class GUIBuscarMoto extends javax.swing.JFrame {
+
+    private int codigoActual;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIBuscarMoto.class.getName());
 
@@ -54,6 +58,11 @@ public class GUIBuscarMoto extends javax.swing.JFrame {
         txtEstado = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         txtIdResultado = new javax.swing.JTextField();
+        lblConcesionario = new javax.swing.JLabel();
+        txtConcesionario = new javax.swing.JTextField();
+        lblConcesionario1 = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -112,15 +121,39 @@ public class GUIBuscarMoto extends javax.swing.JFrame {
         txtIdResultado.setEnabled(false);
         txtIdResultado.addActionListener(this::txtIdResultadoActionPerformed);
 
+        lblConcesionario.setText("Concesionario:");
+
+        txtConcesionario.setEditable(false);
+        txtConcesionario.setEnabled(false);
+        txtConcesionario.addActionListener(this::txtConcesionarioActionPerformed);
+
+        lblConcesionario1.setText("Direccion:");
+
+        txtDireccion.setEditable(false);
+        txtDireccion.setEnabled(false);
+        txtDireccion.addActionListener(this::txtDireccionActionPerformed);
+
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Concesionario");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(92, 92, 92)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                        .addComponent(lblConcesionario1)
+                        .addGap(29, 29, 29)
+                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblConcesionario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtConcesionario, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -157,7 +190,8 @@ public class GUIBuscarMoto extends javax.swing.JFrame {
                                         .addGap(32, 32, 32)
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(catCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(catCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(23, 23, 23))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(123, 123, 123)
                                 .addComponent(jLabel2)
@@ -165,12 +199,17 @@ public class GUIBuscarMoto extends javax.swing.JFrame {
                                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBuscar)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
@@ -211,12 +250,22 @@ public class GUIBuscarMoto extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))))
-                .addGap(0, 32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblConcesionario)
+                    .addComponent(txtConcesionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblConcesionario1)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(10, 10, 10)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(284, Short.MAX_VALUE)))
+                    .addContainerGap(452, Short.MAX_VALUE)))
         );
 
         pack();
@@ -249,11 +298,14 @@ public class GUIBuscarMoto extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String textoId = txtID.getText();
         int id = Integer.parseInt(textoId);
+
         ArchivoMotocicletas archivo = new ArchivoMotocicletas();
+        Archivoconsesionario archivoC = new Archivoconsesionario();
 
         try {
 
             Motocicleta moto = archivo.buscar(id);
+            
 
             if (moto != null) {
 
@@ -261,6 +313,13 @@ public class GUIBuscarMoto extends javax.swing.JFrame {
                 txtPlaca.setText(moto.getPlaca());
                 txtMarca.setText(moto.getMarca());
                 txtPrecio.setText(String.valueOf(moto.getPrecio()));
+                txtConcesionario.setText(String.valueOf(moto.getCodigoConcesionario()));
+                
+                String textoCodigo = txtConcesionario.getText();
+                int codigo = Integer.parseInt(textoCodigo);
+                Concesionario cose = archivoC.buscarcs(codigo);
+                
+                txtDireccion.setText(cose.getDireccion());
 
                 switch (moto.getCategoria()) {
 
@@ -314,6 +373,15 @@ public class GUIBuscarMoto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_catCategoriaActionPerformed
 
+    private void txtConcesionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConcesionarioActionPerformed
+
+
+    }//GEN-LAST:event_txtConcesionarioActionPerformed
+
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -345,6 +413,7 @@ public class GUIBuscarMoto extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkDisponible;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -353,7 +422,11 @@ public class GUIBuscarMoto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblConcesionario;
+    private javax.swing.JLabel lblConcesionario1;
     private java.awt.ScrollPane scrollPane1;
+    private javax.swing.JTextField txtConcesionario;
+    private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtIdResultado;

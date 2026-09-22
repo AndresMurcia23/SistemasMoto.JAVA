@@ -49,17 +49,17 @@ public class GUIListarMoto extends javax.swing.JFrame {
 
         tablaMoto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Placa", "Marca", "Precio", "Categoria", "Disponible", "Estado"
+                "ID", "Placa", "Marca", "Precio", "Categoria", "Disponible", "Estado", "Concesionario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, true
+                true, false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -77,12 +77,12 @@ public class GUIListarMoto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnActualizar)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addGap(178, 178, 178))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,7 +119,8 @@ public class GUIListarMoto extends javax.swing.JFrame {
                     moto.getPrecio(),
                     moto.getCategoria(),
                     moto.isDisponible(),
-                    moto.getEstado()
+                    moto.getEstado(),
+                    moto.getCodigoConcesionario()
                 });
             }
 

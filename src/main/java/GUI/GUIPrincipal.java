@@ -4,6 +4,13 @@
  */
 package GUI;
 
+import GUIConcesionario.*;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import persistencia.ArchivoMotocicletas;
+import persistencia.Archivoconsesionario;
+
+
 /**
  *
  * @author Admin
@@ -44,15 +51,29 @@ public class GUIPrincipal extends javax.swing.JFrame {
         menuBar5 = new java.awt.MenuBar();
         menu9 = new java.awt.Menu();
         menu10 = new java.awt.Menu();
+        jLabel1 = new javax.swing.JLabel();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        lblAdicionarConcesionario = new javax.swing.JMenuItem();
+        lblBuscar1 = new javax.swing.JMenuItem();
+        lblActualizar1 = new javax.swing.JMenuItem();
+        lblEliminar1 = new javax.swing.JMenuItem();
+        lblListar1 = new javax.swing.JMenuItem();
+        lblPresupuestoTotal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         lblAdicionar = new javax.swing.JMenuItem();
         lblBuscar = new javax.swing.JMenuItem();
         lblActualizar = new javax.swing.JMenuItem();
         lblEliminar = new javax.swing.JMenuItem();
         lblListar = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        lblPrecioTotal = new javax.swing.JMenuItem();
+        Ayuda = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         menu1.setLabel("File");
         menuBar1.add(menu1);
@@ -84,11 +105,49 @@ public class GUIPrincipal extends javax.swing.JFrame {
         menu10.setLabel("Edit");
         menuBar5.add(menu10);
 
+        jLabel1.setText("jLabel1");
+
+        jMenu4.setText("File");
+        jMenuBar2.add(jMenu4);
+
+        jMenu5.setText("Edit");
+        jMenuBar2.add(jMenu5);
+
+        jMenuItem1.setText("jMenuItem1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jMenu1.setText("Archivo");
         jMenuBar1.add(jMenu1);
+
+        jMenu6.setText("Concesionario");
+
+        lblAdicionarConcesionario.setText("Adicionar");
+        lblAdicionarConcesionario.addActionListener(this::lblAdicionarConcesionarioActionPerformed);
+        jMenu6.add(lblAdicionarConcesionario);
+
+        lblBuscar1.setText("Buscar");
+        lblBuscar1.addActionListener(this::lblBuscar1ActionPerformed);
+        jMenu6.add(lblBuscar1);
+
+        lblActualizar1.setText("Actualizar");
+        lblActualizar1.addActionListener(this::lblActualizar1ActionPerformed);
+        jMenu6.add(lblActualizar1);
+
+        lblEliminar1.setText("Eliminar");
+        lblEliminar1.addActionListener(this::lblEliminar1ActionPerformed);
+        jMenu6.add(lblEliminar1);
+
+        lblListar1.setText("Listar");
+        lblListar1.addActionListener(this::lblListar1ActionPerformed);
+        jMenu6.add(lblListar1);
+
+        lblPresupuestoTotal.setText("Presupuesto Total");
+        lblPresupuestoTotal.addActionListener(this::lblPresupuestoTotalActionPerformed);
+        jMenu6.add(lblPresupuestoTotal);
+
+        jMenuBar1.add(jMenu6);
 
         jMenu2.setText("Motos");
 
@@ -112,10 +171,19 @@ public class GUIPrincipal extends javax.swing.JFrame {
         lblListar.addActionListener(this::lblListarActionPerformed);
         jMenu2.add(lblListar);
 
+        lblPrecioTotal.setText("PrecioTotal");
+        lblPrecioTotal.addActionListener(this::lblPrecioTotalActionPerformed);
+        jMenu2.add(lblPrecioTotal);
+
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Ayuda");
-        jMenuBar1.add(jMenu3);
+        Ayuda.setText("Ayuda");
+
+        jMenuItem2.setText("Acerca de.....");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
+        Ayuda.add(jMenuItem2);
+
+        jMenuBar1.add(Ayuda);
 
         setJMenuBar(jMenuBar1);
 
@@ -148,11 +216,10 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private void lblBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblBuscarActionPerformed
 
         GUIBuscarMoto ventana = new GUIBuscarMoto();
-        
+
         ventana.setLocationRelativeTo(this);
 
         ventana.setDefaultCloseOperation(
-                
                 javax.swing.WindowConstants.DISPOSE_ON_CLOSE
         );
         ventana.setVisible(true);
@@ -164,7 +231,6 @@ public class GUIPrincipal extends javax.swing.JFrame {
         ventana.setLocationRelativeTo(this);
 
         ventana.setDefaultCloseOperation(
-                
                 javax.swing.WindowConstants.DISPOSE_ON_CLOSE
         );
 
@@ -175,11 +241,10 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
     private void lblEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblEliminarActionPerformed
         GUIEliminarMoto ventana = new GUIEliminarMoto();
-        
+
         ventana.setLocationRelativeTo(this);
 
         ventana.setDefaultCloseOperation(
-                
                 javax.swing.WindowConstants.DISPOSE_ON_CLOSE
         );
         ventana.setVisible(true);
@@ -187,7 +252,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
     private void lblListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblListarActionPerformed
         GUIListarMoto ventana = new GUIListarMoto();
-        
+
         ventana.setLocationRelativeTo(this);
 
         ventana.setDefaultCloseOperation(
@@ -196,7 +261,112 @@ public class GUIPrincipal extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_lblListarActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+
+        GUIAyuda ventana = new GUIAyuda();
+        ventana.setLocationRelativeTo(this);
+        ventana.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        ventana.setVisible(false);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void lblAdicionarConcesionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblAdicionarConcesionarioActionPerformed
+
+        GUIAdicionarConcesionario ventana = new GUIAdicionarConcesionario();
+        ventana.setLocationRelativeTo(this);
+        ventana.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        ventana.setVisible(true);
+
+
+    }//GEN-LAST:event_lblAdicionarConcesionarioActionPerformed
+
+    private void lblBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblBuscar1ActionPerformed
+
+        GUIBuscarConcesionario ventana = new GUIBuscarConcesionario();
+        ventana.setLocationRelativeTo(this);
+        ventana.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        ventana.setVisible(true);
+
+    }//GEN-LAST:event_lblBuscar1ActionPerformed
+
+    private void lblActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblActualizar1ActionPerformed
+
+        GUIActualizarConcesionario ventana = new GUIActualizarConcesionario();
+        ventana.setLocationRelativeTo(this);
+        ventana.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        ventana.setVisible(true);
+
+    }//GEN-LAST:event_lblActualizar1ActionPerformed
+
+    private void lblEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblEliminar1ActionPerformed
+
+        GUIEliminarConcesionario ventana = new GUIEliminarConcesionario();
+        ventana.setLocationRelativeTo(this);
+        ventana.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_lblEliminar1ActionPerformed
+
+    private void lblListar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblListar1ActionPerformed
+
+        GUIListarConcesionario ventana = new GUIListarConcesionario();
+        ventana.setLocationRelativeTo(this);
+        ventana.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_lblListar1ActionPerformed
+
+    private void lblPresupuestoTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblPresupuestoTotalActionPerformed
+        try {
+            Archivoconsesionario archivo = new Archivoconsesionario();
+            
+            double sumaPre = archivo.calcularPresupuesto();
+
+            
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "La sumatoria de los precios es: $" + sumaPre,
+                    "Sumatoria",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+        } catch (IOException e) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_lblPresupuestoTotalActionPerformed
+
+    private void lblPrecioTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblPrecioTotalActionPerformed
+        try {
+
+            ArchivoMotocicletas archivo = new ArchivoMotocicletas();
+
+            double suma = archivo.calcularPrecios();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "La sumatoria de los precios es: $" + suma,
+                    "Sumatoria",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+        } catch (IOException e) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_lblPrecioTotalActionPerformed
+
     /**
+     * S
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -222,15 +392,29 @@ public class GUIPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Ayuda;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem lblActualizar;
+    private javax.swing.JMenuItem lblActualizar1;
     private javax.swing.JMenuItem lblAdicionar;
+    private javax.swing.JMenuItem lblAdicionarConcesionario;
     private javax.swing.JMenuItem lblBuscar;
+    private javax.swing.JMenuItem lblBuscar1;
     private javax.swing.JMenuItem lblEliminar;
+    private javax.swing.JMenuItem lblEliminar1;
     private javax.swing.JMenuItem lblListar;
+    private javax.swing.JMenuItem lblListar1;
+    private javax.swing.JMenuItem lblPrecioTotal;
+    private javax.swing.JMenuItem lblPresupuestoTotal;
     private java.awt.Menu menu1;
     private java.awt.Menu menu10;
     private java.awt.Menu menu2;

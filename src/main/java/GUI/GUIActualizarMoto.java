@@ -9,11 +9,13 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import persistencia.ArchivoMotocicletas;
 
+
 /**
  *
  * @author Admin
  */
 public class GUIActualizarMoto extends javax.swing.JFrame {
+    private int idOriginal;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIActualizarMoto.class.getName());
 
@@ -21,8 +23,10 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
      * Creates new form GUIActualizarMoto
      */
     public GUIActualizarMoto() {
+        
         setLocationRelativeTo(this);
         initComponents();
+        
     }
 
     /**
@@ -51,6 +55,8 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtcodigoConcesionario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -91,6 +97,10 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(this::btnActualizarActionPerformed);
 
+        jLabel9.setText("Concesionario");
+
+        txtcodigoConcesionario.addActionListener(this::txtcodigoConcesionarioActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,7 +130,7 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addGap(26, 26, 26)
                             .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -136,8 +146,15 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
                         .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(164, 164, 164)
-                .addComponent(btnActualizar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtcodigoConcesionario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(btnActualizar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -167,9 +184,13 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtcodigoConcesionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnActualizar)
-                .addGap(40, 40, 40))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -189,9 +210,13 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
             Motocicleta moto = archivo.buscar(id);
 
             if (moto != null) {
+                
+                idOriginal = moto.getId();
+                
                 txtPlaca.setText(moto.getPlaca());
                 txtMarca.setText(moto.getMarca());
                 txtPrecio.setText(String.valueOf(moto.getPrecio()));
+                txtcodigoConcesionario.setText(String.valueOf(moto.getCodigoConcesionario()));
 
                 switch (moto.getCategoria()) {
 
@@ -252,10 +277,14 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
         String marca = txtMarca.getText();
         double precio = Double.parseDouble(txtPrecio.getText());
         String estado = txtEstado.getText();
+        String textoCodigoConcesionario = txtcodigoConcesionario.getText();
 
         boolean disponible = chkDisponible.isSelected();
 
         String categoriaTexto = (String) catCategoria.getSelectedItem();
+
+        int codigoConcesionario = Integer.parseInt(textoCodigoConcesionario);
+
         char categoria = categoriaTexto.charAt(categoriaTexto.length() - 2);
 
         Motocicleta moto = new Motocicleta(
@@ -265,14 +294,15 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
                 precio,
                 disponible,
                 categoria,
-                estado
+                estado,
+                codigoConcesionario
         );
 
         ArchivoMotocicletas archivo = new ArchivoMotocicletas();
 
         try {
 
-            archivo.actualizar(moto);
+            archivo.actualizar(idOriginal,moto);
 
             JOptionPane.showMessageDialog(
                     this,
@@ -292,6 +322,10 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void txtcodigoConcesionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcodigoConcesionarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcodigoConcesionarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,10 +365,12 @@ public class GUIActualizarMoto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtcodigoConcesionario;
     // End of variables declaration//GEN-END:variables
 }

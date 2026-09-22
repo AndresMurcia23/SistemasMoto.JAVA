@@ -50,6 +50,8 @@ public class GUIAdicionarMoto extends javax.swing.JFrame {
         chkDisponible = new javax.swing.JCheckBox();
         cmbCategoria = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
+        lblConcesionario = new javax.swing.JLabel();
+        txtConcesionario = new javax.swing.JTextField();
 
         jLabel3.setText("ID:");
 
@@ -83,6 +85,8 @@ public class GUIAdicionarMoto extends javax.swing.JFrame {
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(this::btnAgregarActionPerformed);
 
+        lblConcesionario.setText("Concesionario:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,18 +96,6 @@ public class GUIAdicionarMoto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPrecio))
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtID)
-                            .addComponent(txtPlaca)
-                            .addComponent(txtMarca)
-                            .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDisponible)
                             .addComponent(lblCategoria))
                         .addGap(18, 18, 18)
@@ -111,7 +103,24 @@ public class GUIAdicionarMoto extends javax.swing.JFrame {
                             .addComponent(chkDisponible, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(53, 53, 53)
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(lblConcesionario)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtConcesionario, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbl_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblPrecio))
+                            .addGap(2, 2, 2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtID)
+                                .addComponent(txtPlaca)
+                                .addComponent(txtMarca)
+                                .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -142,12 +151,16 @@ public class GUIAdicionarMoto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDisponible)
                     .addComponent(chkDisponible))
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblConcesionario)
+                    .addComponent(txtConcesionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria)
                     .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
 
         pack();
@@ -168,13 +181,15 @@ public class GUIAdicionarMoto extends javax.swing.JFrame {
         String textoPrecio = txtPrecio.getText();
         boolean isDisponible = chkDisponible.isSelected();
         String categoriaTexto = (String) cmbCategoria.getSelectedItem();
+        String textocodigoConcesionario = txtConcesionario.getText();
         //adquiriendo en String todos los datos del usuario que se pidieron.
 
         int id = Integer.parseInt(textoId);
+        int codigoConcesionario = Integer.parseInt(textocodigoConcesionario);
         double precio = Double.parseDouble(textoPrecio);
         char categoria = categoriaTexto.charAt(categoriaTexto.length() - 2);
-        // convirtiendo de texto a parametros que necesitamos en la clase motocicleta
 
+        // convirtiendo de texto a parametros que necesitamos en la clase motocicleta
         Motocicleta moto = new Motocicleta(
                 id,
                 textoPlaca,
@@ -182,7 +197,8 @@ public class GUIAdicionarMoto extends javax.swing.JFrame {
                 precio,
                 isDisponible,
                 categoria,
-                "ACTIVO"
+                "ACTIVO",
+                codigoConcesionario
         );
         ArchivoMotocicletas archivo = new ArchivoMotocicletas();
 
@@ -244,11 +260,13 @@ public class GUIAdicionarMoto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblConcesionario;
     private javax.swing.JLabel lblDisponible;
     private javax.swing.JLabel lblMarca;
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lbl_ID;
+    private javax.swing.JTextField txtConcesionario;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtPlaca;
