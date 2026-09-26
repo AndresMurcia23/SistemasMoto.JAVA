@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import persistencia.ArchivoMotocicletas;
 import persistencia.Archivoconsesionario;
 
-
 /**
  *
  * @author Admin
@@ -72,6 +71,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
         lblEliminar = new javax.swing.JMenuItem();
         lblListar = new javax.swing.JMenuItem();
         lblPrecioTotal = new javax.swing.JMenuItem();
+        lblAdicionar1 = new javax.swing.JMenuItem();
         Ayuda = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -174,6 +174,10 @@ public class GUIPrincipal extends javax.swing.JFrame {
         lblPrecioTotal.setText("PrecioTotal");
         lblPrecioTotal.addActionListener(this::lblPrecioTotalActionPerformed);
         jMenu2.add(lblPrecioTotal);
+
+        lblAdicionar1.setText("PRUEBA");
+        lblAdicionar1.addActionListener(this::lblAdicionar1ActionPerformed);
+        jMenu2.add(lblAdicionar1);
 
         jMenuBar1.add(jMenu2);
 
@@ -316,10 +320,8 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private void lblPresupuestoTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblPresupuestoTotalActionPerformed
         try {
             Archivoconsesionario archivo = new Archivoconsesionario();
-            
-            double sumaPre = archivo.calcularPresupuesto();
 
-            
+            double sumaPre = archivo.calcularPresupuesto();
 
             JOptionPane.showMessageDialog(
                     this,
@@ -364,6 +366,13 @@ public class GUIPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblPrecioTotalActionPerformed
 
+    private void lblAdicionar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblAdicionar1ActionPerformed
+        asdad ventana = new asdad();
+        ventana.setLocationRelativeTo(this);
+        ventana.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_lblAdicionar1ActionPerformed
+
     /**
      * S
      *
@@ -406,6 +415,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem lblActualizar;
     private javax.swing.JMenuItem lblActualizar1;
     private javax.swing.JMenuItem lblAdicionar;
+    private javax.swing.JMenuItem lblAdicionar1;
     private javax.swing.JMenuItem lblAdicionarConcesionario;
     private javax.swing.JMenuItem lblBuscar;
     private javax.swing.JMenuItem lblBuscar1;
